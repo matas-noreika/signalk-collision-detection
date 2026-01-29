@@ -18,7 +18,7 @@
   "license": "ISC",
   "author": "Matas Noreika",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "./plugin/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

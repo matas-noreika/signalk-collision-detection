@@ -8,7 +8,7 @@ module.exports = (app) => {
   const plugin = {
     id: "signalk-collision-detection",
     name: "Collision detection",
-    start (settings, restartPlugin) => {
+    start: (settings, restartPlugin) => {
       //start-up code goes here
       console.log("Recieved these settings: ", settings);
     },

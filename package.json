@@ -1,0 +1,24 @@
+{
+  "name": "signalk-collision-detection",
+  "version": "1.0.0",
+  "description": "Signalk plugin for assessing potential risks of collision around a vessel",
+  "keywords": [
+    "signalk-node-server-plugin",
+    "signalk-embeddable-webapp"
+  ],
+  "homepage": "https://github.com/matas-noreika/signalk-collision-detection#readme",
+  "bugs": {
+    "url": "https://github.com/matas-noreika/signalk-collision-detection/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/matas-noreika/signalk-collision-detection.git"
+  },
+  "license": "ISC",
+  "author": "Matas Noreika",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

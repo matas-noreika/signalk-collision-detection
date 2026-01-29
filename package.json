@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Signalk plugin for assessing potential risks of collision around a vessel",
   "keywords": [
-    "signalk-app", //required to make the signalk embedded web app work correctly work correctly
+    "signalk-app",
     "signalk-node-server-plugin",
     "signalk-embeddable-webapp"
   ],

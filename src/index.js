@@ -15,16 +15,13 @@ module.exports = (app) => {
     stop: () => {
       //close-up code goes here
     },
-    schema: () => {
+    schema: {
       properties: {
-        //plugin configuration goes here
         type: 'object',
-        properties: {
-          Radius: {
-            type: 'number',
-            title: 'Detection radius (km) for collisions',
-            default: 15
-          }
+        Radius: {
+          type: 'number',
+          title: 'Detection radius (km) for collisions',
+          default: 15
         }
       }
     }

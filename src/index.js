@@ -19,7 +19,6 @@ module.exports = (app) => {
       properties: {
         //plugin configuration goes here
         type: 'object',
-        //required: [],
         properties: {
           Radius: {
             type: 'number',

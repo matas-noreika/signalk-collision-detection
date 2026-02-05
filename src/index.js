@@ -16,8 +16,8 @@ module.exports = (app) => {
       //close-up code goes here
     },
     schema: {
+      type: 'object',
       properties: {
-        type: 'object',
         Radius: {
           type: 'number',
           title: 'Detection radius (km) for collisions',

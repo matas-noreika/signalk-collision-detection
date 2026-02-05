@@ -18,6 +18,15 @@ module.exports = (app) => {
     schema: () => {
       properties: {
         //plugin configuration goes here
+        type: 'object',
+        //required: [],
+        properties: {
+          Radius: {
+            type: 'number',
+            title: 'Detection radius (km) for collisions',
+            default: 15
+          }
+        }
       }
     }
   }

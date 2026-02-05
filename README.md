@@ -1,6 +1,39 @@
 # signalk-collision-detection
 Signalk web application for assessing the risk of potential collisions for a vessel.
 
+# Project Structure
+```
+.
+├── LICENSE
+├── package-lock.json
+├── package.json
+├── public # Final webapp build
+│   └── index.html
+├── public_src # Template directory for HTML and css rendering
+│   └── index.html
+├── README.md
+├── src # Source files for plugin and webapp frontend content
+│   ├── components
+│   │   └── AppPanel.js
+│   └── index.js # Plugin related content
+└── webpack.config.js # Webpack configurations
+```
+
+# Build Instructions
+
+## Local Build
+If you wish to install and develop on top of this project you may wish to use a local build. First you need to clone the repository on your local machine.
+This can be done by the following command:
+
+`git clone git@github.com:matas-noreika/signalk-collision-detection.git`
+
+In order to view the package you must use a npm symlink it can be done by the following:
+
+```
+npm link # run this in the project directory
+npm link signalk-collision-detection # run this in .signalk server directory
+```
+
 # Next Steps
 - [ ] Implement a potential threat detection system using waypoint resources.
 - [ ] Implement an algorithm to determine if a potential collision is to occur within the vessels current movement direction.

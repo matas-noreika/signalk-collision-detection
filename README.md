@@ -3,8 +3,7 @@ Signalk web application for assessing the risk of potential collisions for a ves
 
 # Introduction
 The aim of this plugin is to enable a user of the signalk platform to receive potential risks of collision from the server.
-The plugin will depend on AIS fleet or related plugins which provide information on nearby vessels.
-In the case of the absence of a network connection the option to use a AIS receiver will be provided.
+This plugin depends on an AIS receiver to provide nearby vessel positions.
 
 # Project Structure
 ```Shell

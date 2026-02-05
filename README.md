@@ -25,13 +25,16 @@ Signalk web application for assessing the risk of potential collisions for a ves
 If you wish to install and develop on top of this project you may wish to use a local build. First you need to clone the repository on your local machine.
 This can be done by the following command:
 
-`git clone git@github.com:matas-noreika/signalk-collision-detection.git`
+```Shell
+git clone git@github.com:matas-noreika/signalk-collision-detection.git
+```
 
 In order to view the package you must use a npm symlink it can be done by the following:
 
-```
+```Shell
 npm link # run this in the project directory
-npm link signalk-collision-detection # run this in .signalk server directory
+cd ~/.signalk # cd to signalk server
+npm link signalk-collision-detection # adds symlink to project directory
 ```
 
 # Next Steps

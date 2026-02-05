@@ -3,7 +3,7 @@ Signalk web application for assessing the risk of potential collisions for a ves
 
 # Next Steps
 - [ ] Implement a potential threat detection system using waypoint resources.
-- [ ] Implement a algorithm to determine if a potential collision is to occur within the vessels current movement direction.
+- [ ] Implement an algorithm to determine if a potential collision is to occur within the vessels current movement direction.
 - [ ] _**TBD**_
 
 # Dev notes

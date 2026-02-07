@@ -5,6 +5,7 @@
 */
 {
   "presets":[
-    "@babel/preset-env", // this is a default preset that will transpile code into ES5
+    "@babel/preset-react", // this is a preset to handle jsx and react source code
+    "@babel/preset-env" // this is a default preset that will transpile code into ES5
   ]
 }

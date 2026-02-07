@@ -7,8 +7,23 @@ The goal of this example is to enable the reader to have a better idea in the pr
 
 ## Project Structure 
 
-```
-TBD
+```Shell
+.
+├── output # transpiled javascript content from public
+│   ├── app.js
+│   └── helloText.js
+├── output2 # transpiled javascript XML content from public2
+│   ├── app.js
+│   └── helloText.js
+├── public # javascript version of react-example
+│   ├── app.js
+│   ├── components
+│   └── index.html
+├── public2 # javascript XML version of react-example
+│   ├── app.jsx
+│   ├── components
+│   └── index.html
+└── README.md
 ```
 
 ## Project goals
@@ -81,6 +96,8 @@ npx babel public/app.js -d output
 ```
 
 The `-d` argument supplied tells babel the output directory preferred. Additionally if we did not have a babel configuration file we would have to supply `--presets=@babel/env`.
+
+In the project you will find two copies of react-example. public contains javascript content while public2 contains jsx content that does the same operation.
 
 # References
 [babel docs](https://babeljs.io)

@@ -14,8 +14,8 @@ const app = function(){
 
 //preform the rendering when the app loads
 window.onload = function(){
+  //create a root reference to render our virtual DOM onto our real DOM
   const root = ReactDOM.createRoot(document.getElementById('root'));
-  root.render(
-    React.createElement(Hello,{name: 'matas'}, null),
-  );
+  //Render our Hello class and pass our name as a property (change the name to your liking)
+  root.render(React.createElement(Hello,{name: 'matas'}, null));
 }

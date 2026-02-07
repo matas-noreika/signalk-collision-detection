@@ -8,7 +8,9 @@ This plugin depends on an AIS receiver to provide nearby vessel positions.
 # Project Structure
 ```Shell
 .
+├── examples
 ├── LICENSE
+├── node_modules
 ├── package-lock.json
 ├── package.json
 ├── public # Final webapp build
@@ -40,6 +42,8 @@ npm link # run this in the project directory
 cd ~/.signalk # cd to signalk server
 npm link signalk-collision-detection # adds symlink to project directory
 ```
+
+***Currently the rendering of the frontend is only supported within signalk server.*** 
 
 # Next Steps
 - [ ] Implement a potential threat detection system using waypoint resources.

@@ -26,6 +26,9 @@
     "displayName": "Collision-detection"
   },
   "devDependencies": {
+    "@babel/cli": "^7.28.6",
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.0",
     "html-webpack-plugin": "^5.6.6",
     "react": "^19.2.4",
     "webpack": "^5.104.1",

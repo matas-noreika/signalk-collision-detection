@@ -1,3 +1,5 @@
+"use strict";
+
 /*
  * Purpose:
  * This defines the main script that will render our webpage using our components found in ./components
@@ -5,9 +7,11 @@
 */
 
 //preform the rendering when the app loads
-window.onload = () => {
+window.onload = function () {
   //create a root reference to render our virtual DOM onto our real DOM
-  const root = ReactDOM.createRoot(document.getElementById('root'));
+  var root = ReactDOM.createRoot(document.getElementById('root'));
   //Render our Hello class and pass our name as a property (change the name to your liking)
-  root.render(React.createElement(Hello,{name: 'matas'}, null));
-}
+  root.render(React.createElement(Hello, {
+    name: 'matas'
+  }, null));
+};

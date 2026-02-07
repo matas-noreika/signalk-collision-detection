@@ -1,0 +1,10 @@
+/*
+ * Purpose:
+ * This is a configuration file that babel uses to determine how the transpilign should work.
+ * Programmer: Matas Noreika 26/02/07 02:32:36
+*/
+{
+  "presets":[
+    "@babel/preset-env", // this is a default preset that will transpile code into ES5
+  ]
+}

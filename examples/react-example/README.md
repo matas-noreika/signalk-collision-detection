@@ -29,5 +29,8 @@ One very important lesson that this teaches us is that the order of which the sc
 
 Another important detail is the version of javascript we are using. The `class` keyword in javascript is ES6 and surprisingly ES5 is still used to this day. This introduces a version issue that babel as a transpiler can solve for us in a later stage.
 
+# How to test
+Simply open index.html found in public directory.
+
 # References
 [CDN links for react](https://legacy.reactjs.org/docs/cdn-links.html)

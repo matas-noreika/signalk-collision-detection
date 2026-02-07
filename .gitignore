@@ -138,4 +138,7 @@ dist
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-./public
+# build directory
+public/
+#allow public directory in examples
+!examples/react-example/public/

@@ -1,0 +1,18 @@
+<!-- Matas Noreika 26/02/06 18:20:40 -->
+<!DOCTYPE html> <!-- Document tag to allow other porgrams to know this is HTML-->
+<html lang="en"> <!-- Opening document tag with an attribute declaring the language is english -->
+  <head> <!-- Head content is not rendered but allows us to import files and set metadata(information about file) -->
+    <meta charset="UTF-8"> <!-- metadata defining the rendering character format -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- metadata defining the way the viewport should render -->
+    <title>React example</title> <!-- Sets the tab title in the browser -->
+    <!-- These two scripts include react to our project as we are not using any backend or bundler to link all the sources together -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+      </head>
+  <body> <!-- Body tag is the container for all content that will be loaded in the browser -->
+    <!-- We will load nothing except add a root to anchor our react content -->
+    <div id='root'></div>
+    <script type="text/javascript" src="./components/helloText.js"></script> <!-- import our component for rendering hello {name} -->
+    <script type="text/javascript" src="app.js"></script> <!-- import our react code so that it can do the rendering -->
+  </body>
+</html>

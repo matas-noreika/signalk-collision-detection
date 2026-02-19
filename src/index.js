@@ -32,6 +32,8 @@ module.exports = (app) => {
       //start-up code goes here
       // do nothing for now, just log the settings to the console
       console.log("Recieved these settings: ", settings);
+      console.log("Vessel id: ",app.selfId);
+      getVesselPosition(app);
     }, // end of start method
 
     // define the stop method, which is called when the plugin is stopped.
@@ -79,3 +81,13 @@ module.exports = (app) => {
 } // end of module.exports function
 // end of file
 ////////// ////////// ////////// //////////
+
+function getVesselPosition(app){
+	let position = app.getSelfPath("navigation");
+	//data could not exist in that case we cath the error
+	if (position == null){
+	    console.log("Data for position does not exist");
+	}else{
+	    console.log("position:", position);
+	}
+}

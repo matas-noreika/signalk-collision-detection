@@ -5,9 +5,10 @@ const packJson = require('./package'); //reference to our npm package.json
 
 module.exports = {
 	entry: './src/index.js', //entry point to chain dependencies
-	mode: 'development', //mode usually used to reduce computing for testing
+	mode: 'development', //mode usually used to reduce computing for testing (also enables a environmental variable to control console logging)
 	output: {
-		path: path.resolve(__dirname, 'public') //set our output to public directory
+		path: path.resolve(__dirname, 'public'), //set our output to public directory
+		filename: "app_bundle.js"
 	},
 	resolve: {
 		extensions: ['.tsx','.jsx','.js'] //files in order for which webpack will resolve

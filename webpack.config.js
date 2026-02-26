@@ -4,11 +4,15 @@ const { ModuleFederationPlugin } = require('webpack').container; //include the m
 const packJson = require('./package'); //reference to our npm package.json
 
 module.exports = {
-	entry: './src/index.js', //entry point to chain dependencies
-	mode: 'development', //mode usually used to reduce computing for testing (also enables a environmental variable to control console logging)
+	//entry point to chain dependencies
+  entry: {
+    frontend: './src/frontend.js'
+  },
+  mode: 'development', //mode usually used to reduce computing for testing (also enables a environmental variable to control console logging)
 	output: {
 		path: path.resolve(__dirname, 'public'), //set our output to public directory
-		filename: "app_bundle.js"
+		filename: "[name].bundle.js", //uses substitution by name
+    clean: true // cleans the folder prior building
 	},
 	resolve: {
 		extensions: ['.tsx','.jsx','.js'] //files in order for which webpack will resolve
@@ -19,14 +23,14 @@ module.exports = {
 	plugins: [
 		//this is the plugin that will expose our embedded web app to the server
 		new ModuleFederationPlugin({
-			name: 'Collision detection', //special tag name that can be used in other modules
+			name: 'frontend', // The entry from which we wish to expose from
 			library: {type: 'var', name: packJson.name.replace(/[-@/]/g, '_')},
-			filename: 'remoteEntry.js', //the file to be generated
 			exposes: {
 				//components we wish to expose
 				'./AppPanel': './src/components/AppPanel'
 			},
-			shared: [{react: {singleton: true}}, 'react-dom']
+      //define the shared modules (typically large dependencies like react)
+      shared: [{react: {singleton: true, eager: true,requiredVersion: false}}]
 			}),
 		//use the plugin to generate a html file using the template provided
 		new HtmlWebpackPlugin({

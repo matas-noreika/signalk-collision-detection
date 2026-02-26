@@ -9,7 +9,7 @@ import React from 'react';
 ////////// ////////// ////////// //////////
 // The AppPanel component is a simple React component that renders
 // a heading element with some text.
-const AppPanel = (props) => {
+export default function AppPanel(props){
 	// The props argument can be used to access any properties passed 
 	// to the component, such as the plugin settings or any data 
 	// from the Signal K server.
@@ -17,8 +17,3 @@ const AppPanel = (props) => {
 } // end of AppPanel component definition
 ////////// ////////// ////////// //////////
 
-////////// ////////// ////////// //////////
-// make the AppPanel component available for import in other files,
-// such as the index.js file where the plugin is defined.
-export default AppPanel
-////////// ////////// ////////// //////////

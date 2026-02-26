@@ -8,15 +8,18 @@
 function validatePos(position){
 	//check if the object reference is even valid
 	if (position == null){
+    //only production build debug information
 		if (process.env.NODE_ENV == "development"){console.log("Invalid position object reference")};
-		return false;
+    return false;
 	}
 	//check if positional data values exist
 	if (position.latitude == null){
+    //only production build debug information
 		cif (process.env.NODE_ENV == "development"){onsole.log("Position object missing latitude value")};
 		return false;
 	}
 	if (position.longitude == null){
+    //only production build debug information
 		cif (process.env.NODE_ENV == "development"){onsole.log("Position object missing longitude value")};
 		return false;
 	}
@@ -31,6 +34,7 @@ default export function moveLine(position, heading, speed){
 	if (validatePos(position)){
 		
 	}else{
+    //only production build debug information
 		if (process.env.NODE_ENV == "development"){console.log("Attempting to move with invalid position")};
 	}
 }

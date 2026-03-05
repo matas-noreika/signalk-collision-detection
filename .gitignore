@@ -140,5 +140,6 @@ vite.config.ts.timestamp-*
 
 # build directory
 public/
+
 #allow public directory in examples
 !examples/react-example/public/

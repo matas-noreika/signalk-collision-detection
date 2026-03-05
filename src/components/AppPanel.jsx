@@ -9,11 +9,18 @@ import React from 'react';
 ////////// ////////// ////////// //////////
 // The AppPanel component is a simple React component that renders
 // a heading element with some text.
-export default function AppPanel(props){
-	// The props argument can be used to access any properties passed 
-	// to the component, such as the plugin settings or any data 
-	// from the Signal K server.
-	return React.createElement('h1', null,'This is added with react');
-} // end of AppPanel component definition
+// The props argument can be used to access any properties passed 
+// to the component, such as the plugin settings or any data 
+// from the Signal K server.
+const AppPanel = (props) => {
+  console.log("passed properties: ", props);
+	return (
+    <div>
+    <h1> Hello from react </h1>
+    </div>
+  );
+}
+// end of AppPanel component definition
 ////////// ////////// ////////// //////////
 
+export default AppPanel;

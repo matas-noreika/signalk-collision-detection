@@ -5,13 +5,10 @@ const packJson = require('./package'); //reference to our npm package.json
 
 module.exports = {
 	//entry point to chain dependencies
-  entry: {
-    frontend: './src/frontend.js'
-  },
+  entry: './src/index',// reference to source file to build dependency chain from
   mode: 'development', //mode usually used to reduce computing for testing (also enables a environmental variable to control console logging)
 	output: {
 		path: path.resolve(__dirname, 'public'), //set our output to public directory
-		filename: "[name].bundle.js", //uses substitution by name
     clean: true // cleans the folder prior building
 	},
 	resolve: {
@@ -20,17 +17,32 @@ module.exports = {
 	watchOptions: {
 		ignored: '/node_modules/' // webpack prefers this over the plugin
 	},
+  //define our loaders
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/, //tests for .jsx extention
+        loader: 'babel-loader', //define the target loader for match
+        exclude: /node_modules/, //exclude our modules as they are prebuilt
+        options: {
+          presets: ['@babel/preset-react'] // babel settings, react
+        }
+      }
+    ]
+  },
 	plugins: [
 		//this is the plugin that will expose our embedded web app to the server
 		new ModuleFederationPlugin({
-			name: 'frontend', // The entry from which we wish to expose from
-			library: {type: 'var', name: packJson.name.replace(/[-@/]/g, '_')},
+			name: 'Collision Detection',
+      // defines the exposed module filename (signalk expects remoteEntry)
+      library: {type: 'var', name: packJson.name.replace(/[-@/]/g, '_')},
+      filename: "remoteEntry.js",
 			exposes: {
 				//components we wish to expose
-				'./AppPanel': './src/components/AppPanel'
+				'./AppPanel': './src/components/AppPanel.jsx'
 			},
       //define the shared modules (typically large dependencies like react)
-      shared: [{react: {singleton: true, eager: true,requiredVersion: false}}]
+      shared: [{react: {singleton: true,requiredVersion: false}},{'react-dom': {singleton: true,requiredVersion: false}}]
 			}),
 		//use the plugin to generate a html file using the template provided
 		new HtmlWebpackPlugin({

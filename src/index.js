@@ -4,6 +4,8 @@
  * Programmer: Matas Noreika 26/01/29 11:51:23
 */
 
+import('./bootstrap.js');
+
 // The plugin must export a function that returns an object with 
 // the following properties:
 // id: a unique identifier for the plugin, used for installation and management

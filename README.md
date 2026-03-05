@@ -8,6 +8,14 @@ The aim of this plugin is to enable a user of the signalk platform to receive
 potential risks of collision from the server.
 This plugin depends on an AIS receiver to provide nearby vessel positions.
 
+# Theory overview
+
+The plugin represents current vessel and nearby vessels as points,
+which are a pair of longitude and latitude values representing a unique
+location. The values can be obtained currently through an AIS receiver
+although plans to expand and create a generic interface would be optimal
+for cross compatibility with different sensors like radar, LiDAR, etc.
+
 # Project Structure
 
 ```Shell
@@ -69,8 +77,9 @@ within the vessels current movement direction.
 
 # Dev notes
 
-The web app used webpack for bundling and transpiling to ES5.
+The web app uses webpack for bundling and transpiling to ES5.
 The frontend framework uses react as per the documentation provided on signalk.
+Signalk-server expects a file names remoteEntry.js for webapp frontend.
 
 # Documentation
 

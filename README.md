@@ -86,9 +86,11 @@ within the vessels current movement direction.
 
 # Dev notes
 
-The web app uses webpack for bundling and transpiling to ES5.
-The frontend framework uses react as per the documentation provided on signalk.
-Signalk-server expects a file names remoteEntry.js for webapp frontend.
+- The web app uses webpack for bundling and transpiling to ES5.
+- The frontend framework uses react as per the documentation provided on signalk.
+- Signalk-server expects a file names remoteEntry.js for webapp frontend.
+- signalk-server expects react and react-dom as shared libraries under the
+exposed module federation using `{singleton: true, requiredVersion: false}`.
 
 ## AppPanel client and server preview
 

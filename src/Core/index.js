@@ -7,8 +7,8 @@
 //import vessel interface
 import Vessel from './vessel';
 
-const SignalkCore = {
+const Core = {
   Vessel: Vessel
 }
 
-export default SignalkCore;
+export default Core;

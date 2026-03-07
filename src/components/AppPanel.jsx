@@ -6,7 +6,7 @@
 // and enabled.
 
 
-import SignalkCore from '../SignalkCore';
+import Core from '../Core';
 //imports react
 import React, { useState } from 'react';
 
@@ -23,7 +23,7 @@ const AppPanel = (props) => {
   console.log("passed properties: ", props);
   //function handler for when button is pressed
   const buttonHandler = async () => {
-    const res = await SignalkCore.Vessel.getPos();
+    const res = await Core.Vessel.getPos();
     setResponseMsg(JSON.stringify(res));
   }
   //call method to optain vessel position in console

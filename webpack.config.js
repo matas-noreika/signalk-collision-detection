@@ -5,10 +5,7 @@ const packJson = require('./package'); //reference to our npm package.json
 
 module.exports = {
 	//entry point to chain dependencies
-  entry: {
-    app: './src/index',// reference to source file to build dependency chain from
-    indepapp: './src/indep.index',
-  },
+  entry: './src/index',// reference to source file to build dependency chain from
   mode: 'development', //mode usually used to reduce computing for testing (also enables a environmental variable to control console logging)
 	output: {
 		path: path.resolve(__dirname, 'public'), //set our output to public directory

@@ -4,6 +4,7 @@
  * Programmer: Matas Noreika 26/01/29 11:51:23
 */
 
+//loads the client side AppPanel in the absense of signalk-server
 import('./bootstrap.js');
 
 // The plugin must export a function that returns an object with 
@@ -15,6 +16,8 @@ import('./bootstrap.js');
 // schema: a JSON schema that defines the configuration options for the plugin, used to generate the UI for configuring the plugin
 // The plugin can also include any additional properties or methods as needed for its functionality.
 // The plugin function receives the app object as an argument, which can be used to access the Signal K server and other plugins.
+
+
 module.exports = (app) => {
 
   ////////// ////////// ////////// //////////
@@ -35,7 +38,7 @@ module.exports = (app) => {
       // do nothing for now, just log the settings to the console
       console.log("Recieved these settings: ", settings);
       console.log("Vessel id: ",app.selfId);
-      getVesselPosition(app);
+      
     }, // end of start method
 
     // define the stop method, which is called when the plugin is stopped.
@@ -75,7 +78,41 @@ module.exports = (app) => {
           default: 15
         } // end of Radius property
       } // end of properties
-    } // end of schema
+    }, // end of schema
+    registerWithRouter: (router) => {// start of registerWithRouter
+      //create a GET endpoint to use as interface
+      //for SignalkCore
+      router.get('/pos', (req, res) => {//start of get pos
+        const nav_data = app.getSelfPath("navigation");
+        app.debug("navigation data: ", nav_data);
+        try{
+          //check if navigation data exists
+          if(typeof nav_data == 'undefined'){
+            throw new Error('Navigation data missing!');
+          }
+          //check if position is a member object of nav_data
+          if(!nav_data.hasOwnProperty('position')){
+            throw new Error('Position data missing');
+          }
+          if(!nav_data.position.hasOwnProperty('value')){
+            throw new Error('value property missing in position data');
+          }
+          //send our position data
+          app.debug("position data: ", nav_data.position.value);
+          res.status(200).json(nav_data.position.value);
+        }catch(error){
+          //Error objects don't parse like regular objects
+          //JSON.stringify() returns, {} for errors
+          app.debug(error);
+          res.status(200).json({message: error.message});
+        }
+      });//end of get pos
+      router.post('/pos', (req,res) => {//start of post pos
+        console.log(req.body);
+        res.status(200).end();
+
+      });//end of post pos
+    }//end of registerWithRouter
   } // end of plugin object definition
 
   // return the plugin object to be used by the Signal K server
@@ -84,12 +121,3 @@ module.exports = (app) => {
 // end of file
 ////////// ////////// ////////// //////////
 
-function getVesselPosition(app){
-	let position = app.getSelfPath("navigation");
-	//data could not exist in that case we cath the error
-	if (position == null){
-	    console.log("Data for position does not exist");
-	}else{
-	    console.log("position:", position);
-	}
-}

@@ -33,12 +33,12 @@ module.exports = {
 	plugins: [
 		//this is the plugin that will expose our embedded web app to the server
 		new ModuleFederationPlugin({
-			name: 'Collision Detection',
-      // defines the exposed module filename (signalk expects remoteEntry)
+      name: 'Collision Detection',
       library: {type: 'var', name: packJson.name.replace(/[-@/]/g, '_')},
+      // defines the exposed module filename (signalk expects remoteEntry)
       filename: "remoteEntry.js",
 			exposes: {
-				//components we wish to expose
+				//components we wish to expose (AppPanel -> webapp frontend)
 				'./AppPanel': './src/components/AppPanel.jsx'
 			},
       //define the shared modules (typically large dependencies like react)

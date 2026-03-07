@@ -5,18 +5,29 @@ Signalk web application for assessing the risk of potential collisions for a ves
 # Introduction
 
 The aim of this plugin is to enable a user of the signalk platform to receive
-potential risks of collision from the server.
-This plugin depends on an AIS receiver to provide nearby vessel positions.
+potential risks of collision from the server. The plugin interfaces with the
+signalk data model to obtain relevant information that is exposed of the own
+vessel and others identified by sensors and receivers like AIS.
 
 # Theory overview
 
 The plugin represents the current vessel and nearby vessels as points,
 which are a pair of longitude and latitude values representing a unique
-location. The values can be obtained currently through an AIS receiver
-although plans to expand and create a generic interface would be optimal
-for cross compatibility with different sensors like radar, LiDAR, etc.
+location. Using Closest Point of Approach(CPA) algorithm all nearby vessels
+will be evaluated to determine a particular risk assessment ***TBD***.
+
+# Software Design Overview
+
+In this repository two examples are provided ClientCore and
+SignalkCore. These serve as interfaces to a core service like signalk
+which enable methods or endpoints that provide sensor information that
+is relevant or required by the higher level algorithms which interface with
+only methods exposed by the core interface API. This enables easier portability
+and platform independency.
 
 # Project Structure
+
+***Has to be updated***
 
 ```Shell
 .
@@ -71,12 +82,6 @@ Once bundled you will find a `public/` directory from which you can
 open the `index.html` to view the AppPanel component.
 **MacOS users may use `open index.html`**
 
-## Development Features
-
-The functionalities exposed by this web application are not fixed to the
-signalk platform. This means that future development or implementation of this
-software can be reimplemented for a different data model or use case.
-
 # Next Steps
 
 - [ ] Implement a potential threat detection system using signalk data model.
@@ -91,6 +96,25 @@ within the vessels current movement direction.
 - Signalk-server expects a file names remoteEntry.js for webapp frontend.
 - signalk-server expects react and react-dom as shared libraries under the
 exposed module federation using `{singleton: true, requiredVersion: false}`.
+
+If you are using not sensors to update self position use the following json
+data in data fiddler to write some latitude and longitude information.
+
+```shell
+{
+  "context": "vessels.self",
+  "updates": [
+    {
+      "source": { "label": "GPS_1" },
+      "timestamp": "2026-03-05T12:00:00.000Z",
+      "values": [
+        { "path": "navigation.position", "value": { "longitude": 123.456, "latitude": 65.432 } },
+        { "path": "navigation.speedOverGround", "value": 5.2 }
+      ]
+    }
+  ]
+}
+```
 
 ## AppPanel client and server preview
 

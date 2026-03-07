@@ -11,6 +11,7 @@ const Vessel = {//start of Vessel
   */
   getPos: async function(){//start of getPos
     //fetch is like XMLHttpRequest except uses promises
+    //fetch is also asynchronous thats why we need async/await keywords
     //routes are attached by the plugin @ /plugins/<plugin-id>/endpoint
     try{
       const res = await fetch(

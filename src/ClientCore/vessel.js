@@ -8,8 +8,10 @@
 // defines an object container for Vessel interface
 const Vessel = {
   getPos: function(){
+    const data = {longitude: 0, latitude: 0};
     //just a simple test build
-    console.log("pos: 0, 0")
+    console.log(data);
+    return data;
   }
 }
 

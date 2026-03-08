@@ -67,7 +67,7 @@ module.exports = (app) => {//start of module.exports function
       res.status(200).json({message: error.message});
     }
   };//end of getPos()
-  const setPos = (req,res) => {//start of setPos()
+  const setPos = (req, res) => {//start of setPos()
     console.log(req.body);
     res.status(200).end();
   };//end of setPos()

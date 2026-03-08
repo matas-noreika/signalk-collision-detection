@@ -1,26 +1,25 @@
-////////// ////////// ////////// //////////
-// Matas Noreika 26/01/29 11:51:23
-// This is the definition of the application panel component, 
-// which is a React component that will be rendered in the 
-// Signal K server's web interface when the plugin is installed 
-// and enabled.
+/*
+ * Purpose:
+ * definition of React Single Page App (SPA) that renders the
+ * frontend interface to interact with services exposed by plugin
+ * Programmer: Matas Noreika 26/03/07 17:09:14
+*/
 
-
+//import the Core API interface to communicate with underlying server
 import Core from '../Core';
 //imports react
 import React, { useState } from 'react';
+//import our PosForm component
+import PosForm from './PosForm';
 
-////////// ////////// ////////// //////////
-// The AppPanel component is a simple React component that renders
-// a heading element with some text.
-// The props argument can be used to access any properties passed 
-// to the component, such as the plugin settings or any data 
-// from the Signal K server.
-const AppPanel = (props) => {
+//props argument defines the properties to create the AppPanel with
+//like classname, styling, etc.
+const AppPanel = (props) => {// start of AppPanel
+  //React state -> essential component based local memory to save states
+  //between re-renderings
+  // [] -> object deserialisation into a variable and setter method
+  // Value in useState defines the default value
   const [responseMsg, setResponseMsg] = useState('response will appear here');
-
-  //generic debug console log to see properties passed
-  console.log("passed properties: ", props);
   //function handler for when button is pressed
   const buttonHandler = async () => {
     const res = await Core.Vessel.getPos();
@@ -33,10 +32,12 @@ const AppPanel = (props) => {
     <h1> Hello from react </h1>
     <button onClick={buttonHandler}> Click to print position </button>
     <p> {responseMsg} </p>
+    <PosForm />
     </div>
   );
-}
-// end of AppPanel component definition
-////////// ////////// ////////// //////////
+};//end of AppPanel
 
+//Set the AppPanel react component (function)
+// This the default return of the module when:
+// import AppPanel from './AppPanel' is called
 export default AppPanel;

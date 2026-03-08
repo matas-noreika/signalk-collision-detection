@@ -34,18 +34,26 @@ const Vessel = {//start of Vessel
   /*
    * Setter method to set self vessel position to core
   */
-  setPos: function(latitude, longitude){//start of setPos
-    const response = fetch(
-      '/plugins/signalk-collision-detection/pos',
-      {
-        credentials: 'include',
-        method: 'POST',
-        body: JSON.stringify({
-          longitude: longitude,
-          latitude: latitude
-        })
+  setPos: async function(posData){//start of setPos
+    console.log(posData);
+    try{
+      const response = await fetch(
+        '/plugins/signalk-collision-detection/pos',
+        {
+          credentials: 'include',
+          method: 'POST',
+          body: JSON.stringify(posData)
+        }
+      );
+      if(res.ok){
+        return 'Data updated successfully!';
+      }else{
+        throw new Error('Data POST failed!');
       }
-    );
+    }catch(error){
+      console.error("Error: ", error);
+      return 'Data update failed!';
+    }
   }//end of setPos
 };//end of Vessel
 

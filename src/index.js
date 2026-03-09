@@ -68,8 +68,9 @@ module.exports = (app) => {//start of module.exports function
     }
   };//end of getPos()
   const setPos = (req, res) => {//start of setPos()
-    console.log(req.body);
-    res.status(200).end();
+    app.debug(req.body);
+    //write data to signalk data model
+    res.status(200).json({message: 'position was set successfully!'});
   };//end of setPos()
   const plugin = {//start of plugin object
     id: PLUGIN_ID,

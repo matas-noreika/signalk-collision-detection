@@ -35,24 +35,29 @@ const Vessel = {//start of Vessel
    * Setter method to set self vessel position to core
   */
   setPos: async function(posData){//start of setPos
-    console.log(posData);
+    console.log("setPos() -> posData: ", posData);
     try{
-      const response = await fetch(
+      const res = await fetch(
         '/plugins/signalk-collision-detection/pos',
         {
           credentials: 'include',
+          headers: {
+          'Content-Type': 'application/json',
+          },
           method: 'POST',
           body: JSON.stringify(posData)
         }
       );
       if(res.ok){
-        return 'Data updated successfully!';
+        const data = await res.json();
+        console.log(data);
+        return data;
       }else{
         throw new Error('Data POST failed!');
       }
     }catch(error){
-      console.error("Error: ", error);
-      return 'Data update failed!';
+      console.error("Error", error);
+      const response = {message: error.message};
     }
   }//end of setPos
 };//end of Vessel

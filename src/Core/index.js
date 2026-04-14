@@ -8,9 +8,11 @@
 
 //import vessel interface
 import Vessel from './vessel';
+import MathUtils from './mathUtils';
 
 const Core = {// start of Core
-  Vessel: Vessel
+  Vessel: Vessel,
+  MathUtils: MathUtils
 }//end of Core
 
 //exports the Core object by default

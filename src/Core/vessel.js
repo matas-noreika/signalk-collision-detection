@@ -9,7 +9,7 @@
 
 const Vessel = {//start of Vessel
   /*
-   * Getter method to retrieve self vessel position from core
+   * Getter method to retriev e self vessel position from core
   */
   getPos: async function(){//start of getPos
     //fetch is like XMLHttpRequest except uses promises

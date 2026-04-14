@@ -2,6 +2,7 @@
   "name": "signalk-collision-detection",
   "version": "1.0.0",
   "description": "Signalk plugin for assessing potential risks of collision around a vessel",
+  "type": "module",
   "keywords": [
     "signalk-node-server-plugin",
     "signalk-embeddable-webapp"
@@ -21,7 +22,7 @@
     "build": "npm run clean && webpack --mode production",
     "dev": "npm run clean && webpack watch --mode development",
     "clean": "rm -dfr ./public 2> /dev/null",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --collectCoverage"
   },
   "signalk": {
     "displayName": "Collision-detection"
@@ -33,6 +34,7 @@
     "@babel/preset-react": "^7.28.5",
     "babel-loader": "^10.0.0",
     "html-webpack-plugin": "^5.6.6",
+    "jest": "^30.3.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "webpack": "^5.104.1",

@@ -26,7 +26,7 @@ module.exports = (app) => {//start of module.exports function
   const start = (config, restartCallback) => {//start of start()
     //start-up code goes here
     // do nothing for now, just log the settings to the console
-    console.log("Recieved these settings: ", settings);
+    console.log("Recieved these settings: ", config);
     console.log("Vessel id: ", app.selfId);
   };//end of start()
   const stop = () => {//start of stop()

@@ -1,0 +1,28 @@
+/*
+ * Purpose:
+ * React component that uses react states and core API to interface to request
+ * positional data and display to user on frontend.
+ * Programmer: Matas Noreika 26/04/10 15:19:37
+*/
+
+import React, { useState } from 'react';
+import Core from '../Core';
+
+export default function posPrinter(props){
+  //React state -> essential component based local memory to save states
+  //between re-renderings
+  // [] -> object deserialisation into a variable and setter method
+  // Value in useState defines the default value
+  const [responseMsg, setResponseMsg] = useState('response will appear here');
+  //handler method for when button is pressed
+  const buttonHandler = async () => {
+    const res = await Core.vessel.getPos();
+    setResponseMsg(JSON.stringify(res));
+  };
+  return (
+    <div>
+      <button onClick={buttonHandler}> Click to print position </button>
+      <p> {responseMsg} </p>
+    </div>
+  );
+}

@@ -60,18 +60,22 @@ const getRelativeDistance = (lat1, long1, lat2, long2) => {
  * tolocal()
  * Function to convert latitude and longitude to local cartesian coordinates.
  * Arguments:
- * lat: vessels latitude given in decimal degrees
- * long: vessels longitude given in decimal degrees
- * Returns: Point object {x,y} in ENU- East North Up format
+ * lat1: vessels 1 latitude given in decimal degrees
+ * long1: vessels 1 longitude given in decimal degrees
+ * lat2: vessels 2 latitude given in decimal degrees
+ * long2: vessels 2 longitude given in decimal degrees
+ * Returns: Point object {x,y} in ENU-East North Up format relative to vessel 1
 */
-const toLocal = (lat, long) => {
+const toLocal = (lat1, long1, lat2, long2) => {
   //convert angles to radians
-  lat *= Math.pi/180;
-  long *= Math.pi/180;
+  lat1 *= Math.pi/180;
+  long1 *= Math.pi/180;
+  lat2 *= Math.pi/180;
+  long2 *= Math.pi/180;
   //using sphere equation
   let point = {x: 0,y: 0};
-  point.x = R * Math.cos(lat) * Math.cos(long);
-  point.y = R * Math.cos(lat) * Math.sin(long);
+  point.x = R * (long2-long1) * Math.cos(lat1);
+  point.y = R * (lat2-lat1);
   return point;
 };
 // definition of component exposed by the module

@@ -40,7 +40,7 @@ test.each([
   [20,25,-20,-25, 7029.372001],
   [30,40,20,20, 2296.579726],
   [-15,20,40,20, 6115.720965]
-])('.getRelativeDistance(%f,%f,%f,%f)',
+])('.getRelativeDistance(%f, %f, %f, %f)',
 (lat1, long1, lat2, long2, expected) => {
   expect(Math.ceil(MathUtil.getRelativeDistance(lat1,long1,lat2,long2)/1e3))
   .toBe(Math.ceil(expected));
@@ -48,8 +48,9 @@ test.each([
 
 //toLocal testing
 test.each([
-  [20,-20, {x: 5625.734574, y: -2047.59993}],
-  [-40,30, {x: 4226.610264, y: 2440.234574}],
-])('.toLocal(%f,%f)',(lat, long, expected) => {
-    expect(Math.ceil(MathUtil.toLocal(lat,long))).toBe(Math.ceil(expected));
+  [20, -20, 25, -25, {x: -4702007.342, y: 555974.6332}],
+  [-40, 30, -40, 25, {x: -4702007.342, y: -8895594.132}],
+  [-40, 30, -40, 30, {x: 0, y: 0}],
+])('.toLocal(%f, %f, %f, %f)', (lat1, long1, lat2, long2, expected) => {
+    expect(Math.ceil(MathUtil.toLocal(lat1,long1,lat2,long2))).toBe(Math.ceil(expected));
 });

@@ -1,0 +1,17 @@
+name: testing
+
+on:
+  push:
+    branches: [master, main]
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5 #checkout the repository
+      - uses: actions/setup-node@v4 #download node onto the image
+        with:
+          node-version: '24'
+      - run: npm ci # clean install the dependencies
+      - run: npm run test --if-present

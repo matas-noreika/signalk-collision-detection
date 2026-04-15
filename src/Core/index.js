@@ -7,8 +7,8 @@
 */
 
 //import vessel interface
-import Vessel from './vessel';
-import MathUtils from './mathUtils';
+import Vessel from './vessel.js';
+import MathUtils from './mathUtils.js';
 
 const Core = {// start of Core
   Vessel: Vessel,

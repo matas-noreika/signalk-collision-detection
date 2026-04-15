@@ -23,14 +23,27 @@ module.exports = (app) => {//start of module.exports function
   const PLUGIN_ID = "signalk-collision-detection";
   //human-readable name for the plugin, used in the UI
   const PLUGIN_NAME = "Collision detection";
+  //create a timer object reference for updating the own vessel position
+  let timer;
   const start = (config, restartCallback) => {//start of start()
-    //start-up code goes here
-    // do nothing for now, just log the settings to the console
+    app.setPluginStatus("Initialising");
     console.log("Recieved these settings: ", config);
     console.log("Vessel id: ", app.selfId);
+    timer = setInterval(() => {
+      app.debug("Timer was called");
+      try{
+        
+      }catch(error){
+        app.debug(error.message);
+      }
+    }, 1000);
+    app.setPluginStatus("Ready");
   };//end of start()
   const stop = () => {//start of stop()
-
+    //clean up the timer
+    clearInterval(timer);
+    timer = null;
+    app.setPluginStatus("Stopped");
   };//end of stop()
   const schema = {
     type: 'object',
@@ -84,6 +97,7 @@ module.exports = (app) => {//start of module.exports function
     //write data to signalk data model
     res.status(200).json({ message: 'position was set successfully!' });
   };//end of setPos()
+
   const plugin = {//start of plugin object
     id: PLUGIN_ID,
     name: PLUGIN_NAME,

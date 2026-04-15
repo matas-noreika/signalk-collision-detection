@@ -1,8 +1,8 @@
 {
   "name": "signalk-collision-detection",
   "version": "1.0.0",
-  "description": "Signalk plugin for assessing potential risks of collision around a vessel",
   "type": "module",
+  "description": "Signalk plugin for assessing potential risks of collision around a vessel",
   "keywords": [
     "signalk-node-server-plugin",
     "signalk-embeddable-webapp"
@@ -17,7 +17,6 @@
   },
   "license": "ISC",
   "author": "Matas Noreika",
-  "main": "./src/index.js",
   "scripts": {
     "build": "npm run clean && webpack --mode production",
     "dev": "npm run clean && webpack watch --mode development",

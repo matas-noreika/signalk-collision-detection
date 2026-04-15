@@ -1,9 +1,13 @@
-const path = require("path"); //path tool from node library
-const HtmlWebpackPlugin = require("html-webpack-plugin"); // html plugin to generate html file with all bundled files included
-const { ModuleFederationPlugin } = require('webpack').container; //include the module federation plugin for webpack
-const packJson = require('./package'); //reference to our npm package.json
+import webpack from 'webpack'; //import webpack dependencies
+import path from "node:path"; //path tool from node library
+import { fileURLToPath } from 'node:url';
+import HtmlWebpackPlugin from "html-webpack-plugin"; // html plugin to generate html file with all bundled files included
+const { ModuleFederationPlugin } = webpack.container; //include the module federation plugin for webpack
+import packJson from './package.json' with {type: 'json'}; //reference to our npm package.json
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-module.exports = {
+export default {
 	//entry point to chain dependencies
   entry: './src/index',// reference to source file to build dependency chain from
   mode: 'development', //mode usually used to reduce computing for testing (also enables a environmental variable to control console logging)

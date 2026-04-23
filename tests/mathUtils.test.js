@@ -48,9 +48,28 @@ test.each([
 
 //toLocal testing
 test.each([
-  [20, -20, 25, -25, {x: -4702007.342, y: 555974.6332}],
-  [-40, 30, -40, 25, {x: -4702007.342, y: -8895594.132}],
+  [20, -20, 25, -25, {x: -44575.64, y: 44602.81406}],
+  [-40, 30, -40, 25, {x: -9111.50766, y: 0}],
   [-40, 30, -40, 30, {x: 0, y: 0}],
 ])('.toLocal(%f, %f, %f, %f)', (lat1, long1, lat2, long2, expected) => {
     expect(Math.ceil(MathUtil.toLocal(lat1,long1,lat2,long2))).toBe(Math.ceil(expected));
+});
+
+//getCpa testing
+test.each([
+  [{x: 5, y: 5}, 6, 50, 5, 270, 2.77479],
+  [{x: 3, y: 2}, 6, 50, 7, 200, 1.37924],
+  [{x: -3, y: -4}, 6, 50, 20, 100, 4.90851],
+])('.getCpa(%f, %f, %f, %f, %f)', (pos, selfSpeed, selfBearing, targetSpeed, targetBearing, expected) => {
+    expect(Math.ceil(MathUtil.getCpa(pos, selfSpeed, selfBearing, targetSpeed, targetBearing))).toBe(Math.ceil(expected));
+});
+
+//getTcpa testing
+//values are increased by a magnitude of 100 to have exponent value
+test.each([
+  [{x: 5, y: 5}, 6, 50, 5, 270, 62.88],
+  [{x: 3, y: 2}, 6, 50, 7, 200, 26.52],
+  [{x: -3, y: -4}, 6, 50, 20, 100, 5.672],
+])('.getTcpa(%f, %f, %f, %f, %f)', (pos, selfSpeed, selfBearing, targetSpeed, targetBearing, expected) => {
+    expect(Math.ceil(100*MathUtil.getTcpa(pos, selfSpeed, selfBearing, targetSpeed, targetBearing))).toBe(Math.ceil(expected));
 });

@@ -57,9 +57,100 @@ const Vessel = {//start of Vessel
       }
     }catch(error){
       console.error("Error", error);
-      const response = {message: error.message};
     }
-  }//end of setPos
+  },//end of setPos
+  getBearing: async function() { // start of getBearing
+    try{
+      const res = await fetch(
+        '/plugins/signalk-collision-detection/bearing',
+        {credentials: 'include'}
+      );
+      if(res.ok){
+        const data = await res.json();
+        console.log(data);
+        return data;
+      }else{
+        throw new Error('Data fetch failed!');
+      }
+    }catch(error){
+      console.error("Error", error);
+    }
+  },// end of setBearing
+  setBearing: async function(bearing) { // start of setBearing
+    console.log("setBearing() -> bearing: ", bearing);
+    try{
+      const res = await fetch(
+        '/plugins/signalk-collision-detection/bearing',
+        {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify({bearing: bearing})
+        }
+      );
+      if(res.ok){
+        const data = await res.json();
+        console.log(data);
+        return data;
+      }else{
+        throw new Error('Data POST failed!');
+      }
+    }catch(error){
+      console.error("Error", error);
+    }
+  },// end of setBearing
+  setVelocity: async function(velocity){ // start of setVelocity
+    console.log("setVelocity() -> velocity: ", velocity);
+    try{
+      const res = await fetch(
+        '/plugins/signalk-collision-detection/velocity',
+        {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify({velocity: velocity})
+        }
+      );
+      if(res.ok){
+        const data = await res.json();
+        console.log(data);
+        return data;
+      }else{
+        throw new Error('Data POST failed!');
+      }
+    }catch(error){
+      console.error("Error", error);
+    }
+  },// end of setVelocity
+  addVessel: async function(lat, long, cog, sog){ // start of addVessel
+    console.log(`addVessel() -> ${lat}, ${long}, ${cog}, ${sog}`);
+    try{
+      const res = await fetch(
+        '/plugins/signalk-collision-detection/vessel/add',
+        {
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          method: 'POST',
+          body: JSON.stringify({lat: lat, long: long, cog: cog, sog: sog})
+        }
+      );
+      if(res.ok){
+        const data = await res.json();
+        console.log(data);
+        return data;
+      }else{
+        throw new Error('Data POST failed!');
+      }
+    }catch(error){
+      console.error("Error: ", error.message);
+    }
+  } // end of addVessel
 };//end of Vessel
 
 export default Vessel;

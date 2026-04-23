@@ -2,6 +2,7 @@
   "name": "signalk-collision-detection",
   "version": "1.0.0",
   "type": "module",
+  "main": "./src/index.js",
   "description": "Signalk plugin for assessing potential risks of collision around a vessel",
   "keywords": [
     "signalk-node-server-plugin",

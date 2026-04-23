@@ -8,6 +8,8 @@
 import Vessel from './vessel.js';
 //Constant for earths radius in metres
 const R = 6371e3;
+//Constant for linear estimation of meters per degree of latitude or longitude
+const METERS_PER_DEG = 111111;
 /*
    * hav(theta)
    * Function that calculates haversine of an angle input theta.
@@ -74,17 +76,61 @@ const toLocal = (lat1, long1, lat2, long2) => {
   long2 *= Math.pi/180;
   //using sphere equation
   let point = {x: 0,y: 0};
-  point.x = R * (long2-long1) * Math.cos(lat1);
-  point.y = R * (lat2-lat1);
+  point.x = METERS_PER_DEG * (long2-long1) * Math.cos(lat1);
+  point.y = METERS_PER_DEG * (lat2-lat1);
   return point;
 };
+/*
+ * getCpa()
+ * Function that calculates the cpa given the target cartesian coordinates
+ * Arguments:
+ * pos: Point object can be return value of toLocal()
+ * selfSpeed: speed of own vessel
+ * selfBearing: bearing of own vessel
+ * targetSpeed: Speed of other vessel
+ * targetBearing: bearing of other vesel
+ * Returns: float value for CPA
+*/
+const getCpa = (pos, selfSpeed, selfBearing, targetSpeed, targetBearing) => {
+  //Decompose bearing into X and Y components
+  deltaVx = (targetSpeed * Math.sin(targetBearing)) - (selfSpeed * Math.sin(selfBearing));
+  deltaVy = (targetSpeed * Math.cos(targetBearing)) - (selfSpeed * Math.cos(selfBearing));
+  //we can assume values for difference of position are relative to our vessel
+  //so we can just set to the pos x and y values
+  return Math.abs(pos.x*deltaVy - pos.y*deltaVx)/Math.sqrt(deltaVy*deltaVy + deltaVx*deltaVx);
+}
+
+/*
+ * getTcpa()
+ * Function to calculate the time to closest point of approach.
+ * Arguments:
+ * pos: Point object can be return value of toLocal()
+ * selfSpeed: speed of own vessel
+ * selfBearing: bearing of own vessel
+ * targetSpeed: Speed of other vessel
+ * targetBearing: bearing of other vesel
+ * Returns: float value for Tcpa
+*/
+const getTcpa = (pos, selfSpeed, selfBearing, targetSpeed, targetBearing) => {
+  //Decompose bearing into X and Y components
+  deltaVx = (targetSpeed * Math.sin(targetBearing)) - (selfSpeed * Math.sin(selfBearing));
+  deltaVy = (targetSpeed * Math.cos(targetBearing)) - (selfSpeed * Math.cos(selfBearing));
+  //we can assume values for difference of position are relative to our vessel
+  //so we can just set to the pos x and y values
+  return -(pos.y*deltaVy+pos.x*deltaVx)/(deltaVx*deltaVx+deltaVy*deltaVy);
+}
 // definition of component exposed by the module
 const mathUtils = {
   R: R,
+  METERS_PER_DEG: METERS_PER_DEG,
   hav: hav,
   archav: archav,
   getRelativeDistance: getRelativeDistance,
-  toLocal: toLocal
+  toLocal: toLocal,
+  getCpa: getCpa,
+  getTcpa: getTcpa
 };
+
+
 
 export default mathUtils;

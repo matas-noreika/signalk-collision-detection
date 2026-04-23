@@ -9,10 +9,13 @@
 import Core from '../Core';
 //imports react
 import React from 'react';
+//import OwnVesselForm component
+import OwnVesselForm from './OwnVesselForm';
 //import our PosForm component
-import PosForm from './PosForm';
+//import PosForm from './PosForm';
 //import our PosPrinter component
 import PosPrinter from './PosPrinter';
+import AddVesselForm from './AddVesselForm';
 
 //props argument defines the properties to create the AppPanel with
 //like classname, styling, etc.
@@ -26,7 +29,8 @@ const AppPanel = (props) => {// start of AppPanel
         webapp on signalk as well as describe the Closest Point of Approach
         algorithm that is implemented on most modern chartplotters.</p>
       <PosPrinter />
-      <PosForm />
+      <OwnVesselForm />
+      <AddVesselForm />
     </div>
   );
 };//end of AppPanel

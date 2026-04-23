@@ -16,7 +16,9 @@
 // The plugin can also include any additional properties or methods as needed for its functionality.
 // The plugin function receives the app object as an argument, which can be used to access the Signal K server and other plugins.
 
-module.exports = (app) => {//start of module.exports function
+import Core from './Core/index.js';
+
+export default function plugin(app){//start of module.exports function
 
   // id allows the plugin to be identified and managed by the Signal K server
   // It is also the name used for API endpoints under /plugins/
@@ -32,11 +34,26 @@ module.exports = (app) => {//start of module.exports function
     timer = setInterval(() => {
       app.debug("Timer was called");
       try{
-        
+        //retrieve external vessels
+        const simulatedVessel = app.getPath('vessels.urn:mrn:imo:mmsi:912345678.navigation');
+        app.debug(simulatedVessel);
+        if (typeof simulatedVessel == 'undefined'){
+          return;
+        }
+        const selfPos = app.getSelfPath('navigation');
+        if (typeof selfPos == 'undefined'){
+          return;
+        }
+        //app.debug(selfPos);
+        const pos = Core.MathUtils.toLocal(selfPos.position.value.latitude, selfPos.position.value.longitude, simulatedVessel.position.value.latitude, simulatedVessel.position.value.longitude);
+        app.debug("values: ", selfPos.position.value, simulatedVessel.position.value);
+        app.debug("pos: ", pos.x, "", pos.y);
+        const cpa = Core.MathUtils.getCpa(pos, selfPos.speedOverGround.value, selfPos.courseOverGroundTrue.value, simulatedVessel.speedOverGround.value, simulatedVessel.courseOverGroundTrue.value);
+        app.debug("cpa: ", cpa);
       }catch(error){
         app.debug(error.message);
       }
-    }, 1000);
+    }, 5000);
     app.setPluginStatus("Ready");
   };//end of start()
   const stop = () => {//start of stop()
@@ -97,7 +114,108 @@ module.exports = (app) => {//start of module.exports function
     //write data to signalk data model
     res.status(200).json({ message: 'position was set successfully!' });
   };//end of setPos()
-
+  const getBearing = (req, res) => {//start of getBearing()
+    const data = app.getSelfPath("navigation.courseOverGroundTrue");
+    app.debug("bearing data: ", data);
+    try {
+      //check if navigation data exists
+      if (typeof data == 'undefined') {
+        throw new Error('Navigation data missing!');
+      }
+      if (!data.position.hasOwnProperty('value')) {
+        throw new Error('value property missing in position data');
+      }
+      //send our position data
+      app.debug("position data: ", data.value);
+      res.status(200).json(data.value);
+    } catch (error) {
+      //Error objects don't parse like regular objects
+      //JSON.stringify() returns, {} for errors
+      app.debug(error);
+      res.status(200).json({ message: error.message });
+    }
+  };//end of getBearing()
+  const setBearing = (req, res) => {// start of setBearing
+    app.debug(req.body);
+    //send delta message to server
+    app.handleMessage(PLUGIN_ID, {
+      updates: [{
+        values: [{
+          path: "navigation.courseOverGroundTrue",
+          value: req.body.bearing * (Math.PI/180)
+        }]
+      }]
+    });
+    res.status(200).json({ message: 'bearing was set successfully!' });
+  }; // end of setBearing
+  const getVelocity = (req, res) => {//start of getVelocity()
+    const data = app.getSelfPath("navigation.speedOverGround");
+    app.debug("velocity data: ", data);
+    try {
+      //check if navigation data exists
+      if (typeof data == 'undefined') {
+        throw new Error('Navigation data missing!');
+      }
+      if (!data.position.hasOwnProperty('value')) {
+        throw new Error('value property missing in position data');
+      }
+      //send our position data
+      app.debug("position data: ", data.value);
+      res.status(200).json(data.value);
+    } catch (error) {
+      //Error objects don't parse like regular objects
+      //JSON.stringify() returns, {} for errors
+      app.debug(error);
+      res.status(200).json({ message: error.message });
+    }
+  };//end of getVelocity()
+  const setVelocity = (req, res) => {// start of setVelocity
+    app.debug(req.body);
+    //send delta message to server
+    app.handleMessage(PLUGIN_ID, {
+      updates: [{
+        values: [{
+          path: "navigation.speedOverGround",
+          value: req.body.velocity
+        }]
+      }]
+    });
+    res.status(200).json({ message: 'velocity was set successfully!' });
+  }; // end of setVelocity
+  const addVessel = (req, res) => {// start of addVessel
+    app.debug(req.body);
+    //send delta message to server
+    app.handleMessage(PLUGIN_ID, {
+      context: `vessels.urn:mrn:imo:mmsi:912345678`,
+      updates: [{
+        source: {
+          type: 'AIS'
+        },
+        values: [
+          {
+            path: "navigation.speedOverGround",
+            value: req.body.sog
+          },
+          {
+            path: "navigation.position",
+            value: {
+              latitude: req.body.lat,
+              longitude: req.body.long
+            }
+          },
+          {
+            path: "navigation.courseOverGroundTrue",
+            value: req.body.cog * (Math.PI/180)
+          },
+          {
+            path: "name",
+            value: "SIMULATED VESSEL"
+          }
+        ]
+      }]
+    });
+    res.status(200).json({ message: 'vessel was added successfully!' });
+  }; // end of addVessel
   const plugin = {//start of plugin object
     id: PLUGIN_ID,
     name: PLUGIN_NAME,
@@ -109,6 +227,10 @@ module.exports = (app) => {//start of module.exports function
       //The Core interfaces with this to enable an abstract interface
       router.get('/pos', getPos);
       router.post('/pos', setPos);
+      router.get('/bearing', getBearing);
+      router.post('/bearing', setBearing);
+      router.post('/velocity', setVelocity);
+      router.post('/vessel/add', addVessel);
     }//end of registerWithRouter
   } // end of plugin object definition
   // return the plugin object to be used by the Signal K server
